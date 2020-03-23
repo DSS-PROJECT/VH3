@@ -1,0 +1,3 @@
+ให้ Copy ไฟล์ หมดใน Folder ไปไว้ใน node_modules => pdfmake => Paste ลงใน build  
+
+จะทำให้ระบบ อ่าน Fonts ภาษาไทยได้
