@@ -18,7 +18,7 @@ import {
 // import PDF from './../PDF';
 
 // import { webapi } from '../../config/index'
-// import { fetchapiGet } from '../../config/index'
+import { fetchapiGet } from '../../config/index'
 
 const options = [
     { key: 'JAN', text: 'JAN', value: '01' },
@@ -36,10 +36,10 @@ const options = [
 
 ]
 
-const DataYear = [
-    { key: '2019', text: '2019', value: '2019' },
-    { key: '2020', text: '2020', value: '2020' }
-]
+// const DataYear = [
+//     { key: '2019', text: '2019', value: '2019' },
+//     { key: '2020', text: '2020', value: '2020' }
+// ]
 
 export class Search extends Component {
 
@@ -59,7 +59,8 @@ export class Search extends Component {
             errorSearch: false,
             errorMonths: false,
             errorYear: false
-        }
+        },
+        options_year: []
 
     }
 
@@ -125,60 +126,39 @@ export class Search extends Component {
         })
     }
 
-    // renderListCar = () => {
+    Option_Year = data => {
+        console.log(data)
 
-    //     let Data = []
+        // console.log(data)
+        data.map((items, key) => {
+            return this.setState({
+                options_year: [
+                    ...this.state.options_year,
+                    {
+                        key: key,
+                        text: items.YEAR,
+                        value: items.YEAR
+                    }
+                ]
+            });
+        });
+    };
 
-    //     for (let num = 0; num < 10; num++) {
-    //         Data.push(
-    //             <Grid.Column key={num}>
-    //                 <List>
-    //                     <List.Item>
-    //                         <Icon name='car' size='huge' color='grey' />
-    //                         <List.Content>
-    //                             <List.Header as='a'>Rachel</List.Header>
-    //                             <List.Description >
-    //                                 Total
-    //                         </List.Description>
-    //                         </List.Content>
-    //                     </List.Item>
-    //                 </List>
-    //             </Grid.Column>
-    //         )
-    //     }
 
-    //     return (
-    //         <Grid columns={4} divided>
-    //             <Grid.Row >
-    //                 {Data}
-    //             </Grid.Row>
-    //         </Grid>
 
-    //     )
-    // }
+    componentDidMount() {
+        let items = fetchapiGet('vh3/get_year/')
+        items.then(res => res.json())
+            .then(res => this.Option_Year(res))
 
-    // CheckDatareturn(data) {
-
-    //     if (data.length === 0) {
-    //         this.setState({ openModel: true, messageText: 'ไม่มีข้อมูลรถหรือข้อมูลเดือนนี้', textinput: { search: '' } })
-
-    //     }
-    //     return data
-    // }
-
-    // componentDidMount() {
-    //     let items = fetchapiGet('vh3/get_year/')
-    //     items.then(res => res.json())
-    //         .then(res => this.setState({ year: res }))
-
-    // }
+    }
 
     // componentWillUpdate(nextProps, nextState) {
     //     console.log(nextState)
     // }
 
     render() {
-        let { textinput: { search, sumnow, yearnow }, openModel, messageText, errorOption: { errorSearch, errorMonths, errorYear } } = this.state
+        let { textinput: { search, sumnow, yearnow }, openModel, messageText, errorOption: { errorSearch, errorMonths, errorYear }, options_year } = this.state
         return (
             <div>
                 <Input
@@ -207,7 +187,7 @@ export class Search extends Component {
                     name="yearnow"
                     value={yearnow}
                     selection
-                    options={DataYear}
+                    options={options_year}
                     onChange={this.handleChange}
                     // onFocus={this.handleFocus}
                     placeholder='Select Year'

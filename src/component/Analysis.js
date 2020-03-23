@@ -104,20 +104,20 @@ export default class Analysis extends Component {
     console.log(event.key)
     if (event.key === "Enter") {
       // this.submitMessage()
-      console.log("event Enter")
+      // console.log("event Enter")
 
       if (event.target.name === 'valueOut') {
-        console.log("TestInputOut")
-        console.log(event.target.value)
-        console.log(id)
+        // console.log("TestInputOut")
+        // console.log(event.target.value)
+        // console.log(id)
         this.setState({
           InputOut: null
         })
       }
       else if (event.target.name === 'valueIN') {
-        console.log("TestInputIN")
-        console.log(event.target.value)
-        console.log(id)
+        // console.log("TestInputIN")
+        // console.log(event.target.value)
+        // console.log(id)
         this.setState({
           InputIn: null
         })
@@ -359,8 +359,8 @@ export default class Analysis extends Component {
               :
               <>
                 {moment(items.data_time_out).utcOffset('+00:00').format("DD/MM/YYYY HH:mm ")}{' '}<Icon name="calendar" />
-                {console.log(items.data_time_out)}
-                {console.log(items.data_time_in)}
+                {/* {console.log(items.data_time_out)}
+                {console.log(items.data_time_in)} */}
               </>
             }
 
@@ -460,6 +460,7 @@ export default class Analysis extends Component {
 
   render() {
     let { options, value, dis_bank, loop_A } = this.state;
+    console.log(dis_bank)
 
     return (
       <div  >
@@ -553,7 +554,9 @@ export default class Analysis extends Component {
                               <Table.HeaderCell colSpan={3}>
                                 {dis_bank && dis_bank.length > 0 && dis_bank[loop_A] && dis_bank[loop_A].Fleet_Card_Num
                                   ? dis_bank[loop_A].Fleet_Card_Num
-                                  : "..."}
+                                  : "..."}  /   {dis_bank && dis_bank.length > 0 && dis_bank[loop_A] && dis_bank[loop_A].Fleet_Card_Num
+                                    ? dis_bank[loop_A].licence_plate_num
+                                    : "..."}
                               </Table.HeaderCell>
                             </Table.Row>
                             <Table.Row>
@@ -586,7 +589,9 @@ export default class Analysis extends Component {
                               <Table.HeaderCell colSpan={5}>
                                 {dis_bank && dis_bank.length > 0 && dis_bank[loop_A] && dis_bank[loop_A].Fleet_Card_Num
                                   ? dis_bank[loop_A].Fleet_Card_Num
-                                  : "..."}
+                                  : "..."}  /  {dis_bank && dis_bank.length > 0 && dis_bank[loop_A] && dis_bank[loop_A].Fleet_Card_Num
+                                    ? dis_bank[loop_A].licence_plate_num
+                                    : "..."}
                               </Table.HeaderCell>
                             </Table.Row>
                             <Table.Row>

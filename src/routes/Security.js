@@ -6,7 +6,7 @@ import InformationDataVh3 from '../Component/InformationDataVh3'
 import EditData from '../Component/EditData'
 import TestUsers from '../Component/Users'
 import PDF from '../Component/PDF'
-import PDF_Damo from '../Component/PDF-Damo'
+// import PDF_Damo from '../Component/PDF-Damo'
 import AuthSystem from '../Component/AuthSystem'
 // import ComingSoon from '../Component/ComingSoon'
 import Analysis from '../Component/Analysis'
@@ -37,7 +37,7 @@ export default class Secure extends Component {
           <Route path="/testusers" component={TestUsers} />
           <Route path="/testreport" component={TestReprot} />
           <Route path="/pdf" component={PDF} />
-          <Route path="/pdf-damo" component={PDF_Damo} />
+          {/* <Route path="/pdf-damo" component={PDF_Damo} /> */}
           <Route path="/authsystem" component={AuthSystem} />
           <Route path="/analysis" component={Analysis} />
           {/* <Route path="/vh3/testpdf" component={MyDocument} /> */}

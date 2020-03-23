@@ -10,11 +10,11 @@ export default () => (
         <Container style={{ marginTop: '5em' }}>
             <Header size="huge">VEHICLE EXPENSES FORM ( VH 3 )</Header>
         </Container>
-        <Container style={{ marginTop: '2em', marginBottom: '2em' }}>
+        {/* <Container style={{ marginTop: '2em', marginBottom: '2em' }}> */}
             <Segment color="red">
                 <ModuleHeader />
             </Segment>
-        </Container>
+        {/* </Container> */}
         <Divider />
         <ViewData />
 

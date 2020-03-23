@@ -6,9 +6,10 @@ const port = 8000;
 // console.log(host)
 // const webapi = `https://${host}/api/`
 let hostname = (host == "vh3") ? `http://${host}:${port}` : `https://vh3.wwit.info`
-hostname = host == 'localhost' ? `http://vh3:${port}` : hostname
-// const webapi = `${hostname}/api/`
+// hostname = host == 'localhost' ? `http://vh3:${port}` : hostname
+
 const webapi = `${hostname}/api/`
+// const webapi = `http://localhost:8000/api/`
 // const apilocal = `https://${host}:${port}/api/`
 
 

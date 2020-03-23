@@ -10,10 +10,13 @@ import {
     Divider,
     Grid,
     Message,
+    Image,
     // Select,
     Placeholder,
     Dimmer,
     Loader,
+    List,
+    Icon
 } from 'semantic-ui-react/dist/commonjs'
 
 // api config
@@ -33,6 +36,9 @@ export class HeaderForm extends Component {
         messageText: '',
         data: null,
         user: null,
+        data_car: null,
+        num: 1,
+        to: 12,
     }
 
     handleChange = this.handleChange.bind(this)
@@ -45,7 +51,7 @@ export class HeaderForm extends Component {
                 [event.target.name]: event.target.value
 
             }
-        })
+        }, () => this.OnloadCar())
     }
 
     handleRef = (c) => {
@@ -58,19 +64,34 @@ export class HeaderForm extends Component {
     }
 
     OnClaer() {
-        this.setState({ data: null })
+        this.setState({ data: null, data_car: null })
         this.props.clearment()
+    }
+
+    OnloadCar() {
+        let { textinput: { search } } = this.state
+        // console.log(search)
+        if (search === '' || search.length === 0 || search === null) {
+            this.setState({ messageIsOpen: false, messageText: 'Please enter', textinput: { search: '' }, data_car: null }, this.focus)
+        }
+        else {
+            let items = fetchapi('car/get_car', { search: search.replace(/ /gi, "") })
+            items.then(res => res.json())
+                .then(res => this.setState({ data_car: res, messageIsOpen: true }))
+        }
+
     }
 
     OnloadData() {
         let { textinput } = this.state
-        this.setState({ active: true, data: null })
+        this.setState({ active: true, data: null, data_car: null })
 
 
         if (textinput.search === '' || textinput.search.length === 0 || textinput.search === null) {
             this.setState({ messageIsOpen: false, messageText: 'Please enter', textinput: { search: '' } }, this.focus)
         } else {
-            let items = fetchapi('car/get_car/', { search: textinput.search.replace(/ /gi, "") })
+            let items = fetchapi('car/get_car', { search: textinput.search.replace(/ /gi, "") })
+            // let items = fetchapi('car/get_car/', { search: textinput.search.replace(/ /gi, "") })
             items.then(res => res.json())
                 .then(res => this.CheckDatareturn(res))
                 .then(posts => posts.map(e => {
@@ -93,14 +114,47 @@ export class HeaderForm extends Component {
         return data
     }
 
+    renderCar = () => {
+        let { data_car, to, num } = this.state
+
+        let Data = []
+
+        // console.log(data_car)
+        if (data_car) {
+            Data.push(data_car.slice((to * num) - to, (to * num)).map((items, key) => (
+
+                <Grid.Column key={key}>
+                    <Segment onClick={() => this.setState({ textinput: { search: items.licence_plate_num } }, () => this.OnloadData())}>
+                        <List divided relaxed>
+                            <List.Item>
+                                <List.Icon name='car' size='huge' />
+                                <List.Content>
+                                    <List.Header as='a' ><Image src={`https://rm.wwit.info/storage/image/empimg/${items.user_empid}.jpg`} size='mini' avatar />{items.licence_plate_num}</List.Header>
+
+                                    <List.Description>{items.user_initt + ' ' + items.user_fnamet + '  ' + items.user_lnamet}</List.Description>
+                                    <List.Description>
+                                        {items.user_deptn}
+                                    </List.Description>
+                                </List.Content>
+
+                            </List.Item>
+                        </List>
+                    </Segment>
+                </Grid.Column>
+
+            )))
+        }
+        return Data
+    }
+
     render() {
         let { active, data, textinput: { search }, messageIsOpen, messageText } = this.state
 
-        let load
+        let loadData
         // console.log(data)
 
         if (data) {
-            load = (
+            loadData = (
                 <Grid columns={2} stackable>
                     <Grid.Column>
                         <Segment color="black">Name : {data.user_initt + "" + data.user_fnamet + " " + data.user_lnamet}</Segment>
@@ -132,7 +186,7 @@ export class HeaderForm extends Component {
                 </Grid>
             )
         } else {
-            load = (
+            loadData = (
                 <div>
                     <Placeholder>
                         <Placeholder.Line />
@@ -161,11 +215,17 @@ export class HeaderForm extends Component {
                 <Button floated='right' negative circular icon='close' onClick={() => this.OnClaer()} />
                 <Message hidden={messageIsOpen} negative>{messageText}</Message>
                 <Divider />
+                <Grid columns={4} divided>
+                    <Grid.Row >
+                        {this.renderCar()}
+                    </Grid.Row>
+                </Grid>
+                <Divider />
                 <Dimmer.Dimmable dimmed={active}>
                     <Dimmer inverted active={active}>
                         <Loader size='large'>Loading</Loader>
                     </Dimmer>
-                    {load}
+                    {loadData}
                 </Dimmer.Dimmable>
             </div>
         )

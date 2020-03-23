@@ -588,11 +588,11 @@ class DataTable extends Component {
             openModel_Del,
         } = this.state
 
-        // console.log(data)
+        console.log(data)
         if (data) {
             return (
                 data.map((number, key) => (
-                    <Table.Row key={key} >
+                    <Table.Row style={{ backgroundColor: (number.bank_id) ? '#22aaaa50' : '#FF555550' }} key={key} >
                         <Table.Cell textAlign='center'>{key + 1}</Table.Cell>
                         <Table.Cell collapsing>{number.user_fnamet + ' ' + number.user_lnamet}</Table.Cell>
                         <Table.Cell fixed="true">{number.des}</Table.Cell>

@@ -90,7 +90,7 @@ class Navbar extends Component {
                     <Menu.Item
                         name="users"
                         active={activeItem === 'users'}
-                        as={NavLink} to="/users" content="Users"
+                        as={NavLink} to="/analysis" content="Analysis"
                         onClick={this.handleItemClick}
                     />
                     <Menu.Menu position="right">
