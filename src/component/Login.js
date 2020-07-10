@@ -55,6 +55,7 @@ export default class Login extends Component {
 
     Login() {
         let { userlogin } = this.state
+        // console.log(userlogin)
         fetch(webapi + 'login', {
             method: 'post',
             headers: {
@@ -79,7 +80,7 @@ export default class Login extends Component {
             }
         })
             .then(res => {
-                // console.log(res)
+                console.log(res)
                 if (res !== '[]') {
                     this.setState({ messageText: "SUCCESSS", messageIsOpenNegative: true })
                     this.SetlocalStore(res)

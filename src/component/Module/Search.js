@@ -9,16 +9,17 @@ import {
     Dropdown,
     Input,
     Icon,
-    // Image,
+    Image,
     Modal,
-    // List,
-    // Grid
+    List,
+    Grid,
+    Segment
 } from 'semantic-ui-react/dist/commonjs'
 
 // import PDF from './../PDF';
 
 // import { webapi } from '../../config/index'
-import { fetchapiGet } from '../../config/index'
+import { fetchapiGet, fetchapi } from '../../config/index'
 
 const options = [
     { key: 'JAN', text: 'JAN', value: '01' },
@@ -60,8 +61,10 @@ export class Search extends Component {
             errorMonths: false,
             errorYear: false
         },
-        options_year: []
-
+        options_year: [],
+        data_car: null,
+        num: 1,
+        to: 12
     }
 
     closeModel = () => this.setState({ openModel: false })
@@ -78,7 +81,7 @@ export class Search extends Component {
                 // [event.target.name]: event.target.value
 
             }
-        })
+        }, () => this.OnloadCar())
     }
 
     handleRef = (c) => {
@@ -127,7 +130,7 @@ export class Search extends Component {
     }
 
     Option_Year = data => {
-        console.log(data)
+        // console.log(data)
 
         // console.log(data)
         data.map((items, key) => {
@@ -144,6 +147,24 @@ export class Search extends Component {
         });
     };
 
+    OnloadCar() {
+        let { textinput: { search } } = this.state
+        // console.log(search)
+        if (search === '' || search.length === 0 || search === null) {
+            this.setState({ messageIsOpen: false, messageText: 'Please enter', textinput: { search: '' }, data_car: null }, this.focus)
+        }
+        else {
+            let items = fetchapi('car/get_car', { search: search.replace(/ /gi, "") })
+            items.then(res => res.json())
+                .then(res => this.setState({ data_car: res, messageIsOpen: true }))
+        }
+
+    }
+
+    OnloadDataCar = () => {
+
+    }
+
 
 
     componentDidMount() {
@@ -156,6 +177,39 @@ export class Search extends Component {
     // componentWillUpdate(nextProps, nextState) {
     //     console.log(nextState)
     // }
+
+    renderCar = () => {
+        let { data_car, to, num } = this.state
+
+        let Data = []
+
+        // console.log(data_car)
+        if (data_car) {
+            Data.push(data_car.slice((to * num) - to, (to * num)).map((items, key) => (
+
+                <Grid.Column key={key}>
+                    <Segment onClick={() => this.setState({ textinput: { search: items.licence_plate_num } }, () => this.OnloadDataCar())}>
+                        <List divided relaxed>
+                            <List.Item>
+                                <List.Icon name='car' size='huge' />
+                                <List.Content>
+                                    <List.Header as='a' ><Image src={`https://rm.wwit.info/storage/image/empimg/${items.user_empid}.jpg`} size='mini' avatar />{items.licence_plate_num}</List.Header>
+
+                                    <List.Description>{items.user_initt + ' ' + items.user_fnamet + '  ' + items.user_lnamet}</List.Description>
+                                    <List.Description>
+                                        {items.user_deptn}
+                                    </List.Description>
+                                </List.Content>
+
+                            </List.Item>
+                        </List>
+                    </Segment>
+                </Grid.Column>
+
+            )))
+        }
+        return Data
+    }
 
     render() {
         let { textinput: { search, sumnow, yearnow }, openModel, messageText, errorOption: { errorSearch, errorMonths, errorYear }, options_year } = this.state
@@ -215,7 +269,11 @@ export class Search extends Component {
       </Button>
                     </Modal.Actions>
                 </Modal >
-                {/* {this.renderListCar()} */}
+                <Grid columns={4} divided>
+                    <Grid.Row >
+                        {/* {this.renderCar()} */}
+                    </Grid.Row>
+                </Grid>
             </div>
         )
     }

@@ -1,22 +1,22 @@
 import React, { Component ,Fragment } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Index from '../Component/Home'
-import InformationDataVh3 from '../Component/InformationDataVh3'
+import Index from '../component/Home'
+import InformationDataVh3 from '../component/InformationDataVh3'
 // import SummeryCar from '../Component/SummeryCar'
-import EditData from '../Component/EditData'
-import TestUsers from '../Component/Users'
-import PDF from '../Component/PDF'
+import EditData from '../component/EditData'
+import TestUsers from '../component/Users'
+import PDF from '../component/PDF'
 // import PDF_Damo from '../Component/PDF-Damo'
-import AuthSystem from '../Component/AuthSystem'
+import AuthSystem from '../component/AuthSystem.js'
 // import ComingSoon from '../Component/ComingSoon'
-import Analysis from '../Component/Analysis'
+import Analysis from '../component/Analysis'
 
-import Navbar from '../Component/Navbar'
+import Navbar from '../component/Navbar'
 
 
 // Test Component
 // import MyDocument from '../Component/Module/TestPDFModule'
-import TestReprot from '../Component/TestReprot'
+import TestReprot from '../component/TestReprot'
 
 // NO Found //
 import NoMatch from './../pages/404'

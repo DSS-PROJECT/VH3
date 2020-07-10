@@ -264,10 +264,10 @@ class DataTable extends Component {
         // console.log(keyData)
         // console.log(form.des.replace(/'/gi, '\''))
         data[keyData]['des'] = form.des.replace(/'/gi, '\'')
-        console.log(data)
+        // console.log(data)
         const updataArray = [...data]
         updataArray[keyData] = form
-        console.log(updataArray[keyData])
+        // console.log(updataArray[keyData])
 
         // this.setState({ data: updataArray })
         let items = fetchapiUpData('vh3/update_data', updataArray[keyData])
@@ -280,7 +280,7 @@ class DataTable extends Component {
                     // data: updataArray,
                     dataEdit: null
                 }, () => {
-                    console.log(search, sumnow, yearnow)
+                    // console.log(search, sumnow, yearnow)
                     let itemsData = fetchapi('vh3/get_load_description', { search: search.replace(/ /gi, ""), process: 'summerycar', sumnow: sumnow, yearnow: yearnow })
                     itemsData.then(res => res.json())
                         .then(res => this.setState({
@@ -588,7 +588,7 @@ class DataTable extends Component {
             openModel_Del,
         } = this.state
 
-        console.log(data)
+        // console.log(data)
         if (data) {
             return (
                 data.map((number, key) => (

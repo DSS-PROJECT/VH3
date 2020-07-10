@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Security from './Security'
-import Login from './../Component/Login'
+import Login from './../component/Login'
 // import Register from '../Component/Register'
 
 // import { Link } from "react-router-dom";
