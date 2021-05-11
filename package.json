@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://vh3.wwit.info",
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "pdfmake": "^0.1.57",
     "react": "^16.6.0",
