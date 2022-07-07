@@ -5,7 +5,7 @@
   "homepage": "https://vh3.wwit.info",
   "dependencies": {
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "pdfmake": "^0.1.57",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
